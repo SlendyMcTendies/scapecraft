@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "minecraft:netherite_boots"
+  },
+  "addition": {
+    "item": "goonspvm:glacial_netherite_ingot"
+  },
+  "result": {
+    "item": "goonspvm:glacial_netherite_boots"
+  }
+}

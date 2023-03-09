@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "goonspvm:item/glacial_netherite_sword"
+  }
+}

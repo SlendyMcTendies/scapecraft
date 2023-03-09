@@ -1,0 +1,25 @@
+{
+  "item.goonspvm.infernal_netherite_ingot": "Infernal Netherite Ingot",
+  "item.goonspvm.infernal_netherite_axe": "Infernal Netherite Axe",
+  "item.goonspvm.infernal_netherite_hoe": "Infernal Netherite Hoe",
+  "item.goonspvm.infernal_netherite_pickaxe": "Infernal Netherite Pickaxe",
+  "item.goonspvm.infernal_netherite_shovel": "Infernal Netherite Shovel",
+  "item.goonspvm.infernal_netherite_sword": "Infernal Netherite Sword",
+  "item.goonspvm.infernal_netherite_helmet": "Infernal Netherite Helmet",
+  "item.goonspvm.infernal_netherite_chestplate": "Infernal Netherite Chestplate",
+  "item.goonspvm.infernal_netherite_leggings": "Infernal Netherite Leggings",
+  "item.goonspvm.infernal_netherite_boots": "Infernal Netherite Boots",
+  "item.goonspvm.glacial_netherite_ingot": "Glacial Netherite Ingot",
+  "item.goonspvm.glacial_netherite_axe": "Glacial Netherite Axe",
+  "item.goonspvm.glacial_netherite_hoe": "Glacial Netherite Hoe",
+  "item.goonspvm.glacial_netherite_pickaxe": "Glacial Netherite Pickaxe",
+  "item.goonspvm.glacial_netherite_shovel": "Glacial Netherite Shovel",
+  "item.goonspvm.glacial_netherite_sword": "Glacial Netherite Sword",
+  "item.goonspvm.glacial_netherite_helmet": "Glacial Netherite Helmet",
+  "item.goonspvm.glacial_netherite_chestplate": "Glacial Netherite Chestplate",
+  "item.goonspvm.glacial_netherite_leggings": "Glacial Netherite Leggings",
+  "item.goonspvm.glacial_netherite_boots": "Glacial Netherite Boots",
+
+  "itemGroup.infernalItemsTab": "Infernal Items",
+  "itemGroup.glacialItemsTab": "Glacial Items"
+}
