@@ -19,7 +19,7 @@ license="All rights reserved"
 [[mods]] #mandatory
 
 # The modid of the mod
-modId="goonspvm" #mandatory
+modId="scapecraft" #mandatory
 
 # The version number of the mod - there's a few well known ${} variables useable here or just hardcode it
 # ${file.jarVersion} will substitute the value of the Implementation-Version as read from the mod's JAR file metadata
@@ -27,7 +27,7 @@ modId="goonspvm" #mandatory
 version="1.16.5-DEV-0.0.1" #mandatory
 
  # A display name for the mod
-displayName="Goons PvM" #mandatory
+displayName="Scapecraft" #mandatory
 
 # A URL to query for updates for this mod. See the JSON update specification https://mcforge.readthedocs.io/en/latest/gettingstarted/autoupdate/
 #updateJSONURL="https://change.me.example.invalid/updates.json" #optional
@@ -44,7 +44,7 @@ authors="SlendyMcTendies" #optional
 
 # The description text for the mod (multi line!) (#mandatory)
 description='''
-Goons PvM - Development Version
+SCapecraft - Runescape in Minecraft - Development Version
 '''
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
 [[dependencies.examplemod]] #optional

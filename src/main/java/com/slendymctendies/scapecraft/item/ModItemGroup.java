@@ -1,4 +1,4 @@
-package com.slendymctendies.goonspvm.item;
+package com.slendymctendies.scapecraft.item;
 
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;

@@ -1,4 +1,4 @@
-package com.slendymctendies.goonspvm.entity.model;
+package com.slendymctendies.scapecraft.entity.model;
 
 // Made with Blockbench 4.6.4
 // Exported for Minecraft version 1.15 - 1.16 with Mojang mappings
@@ -7,7 +7,7 @@ package com.slendymctendies.goonspvm.entity.model;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-import com.slendymctendies.goonspvm.entity.inferno.NibblerEntity;
+import com.slendymctendies.scapecraft.entity.inferno.NibblerEntity;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 

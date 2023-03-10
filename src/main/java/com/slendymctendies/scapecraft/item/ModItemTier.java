@@ -1,9 +1,9 @@
-package com.slendymctendies.goonspvm.item;
+package com.slendymctendies.scapecraft.item;
 
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.LazyValue;
-import net.minecraft.tags.ItemTags;
+
 import java.util.function.Supplier;
 
 public enum ModItemTier implements IItemTier {

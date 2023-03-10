@@ -1,4 +1,4 @@
-package com.slendymctendies.goonspvm.entity.inferno;
+package com.slendymctendies.scapecraft.entity.inferno;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;

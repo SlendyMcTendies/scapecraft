@@ -1,6 +1,6 @@
-package com.slendymctendies.goonspvm.item;
+package com.slendymctendies.scapecraft.item;
 
-import com.slendymctendies.goonspvm.GoonsPvM;
+import com.slendymctendies.scapecraft.Scapecraft;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.IArmorMaterial;
 import net.minecraft.item.crafting.Ingredient;
@@ -65,7 +65,7 @@ public enum ModArmorMaterial implements IArmorMaterial {
 
     @OnlyIn(Dist.CLIENT)
     public String getName() {
-        return GoonsPvM.MOD_ID + ":" + this.name;
+        return Scapecraft.MOD_ID + ":" + this.name;
     }
 
     public float getToughness() {

@@ -1,16 +1,13 @@
-package com.slendymctendies.goonspvm.events;
+package com.slendymctendies.scapecraft.events;
 
-import com.slendymctendies.goonspvm.GoonsPvM;
-import com.slendymctendies.goonspvm.entity.ModEntityTypes;
-import com.slendymctendies.goonspvm.entity.inferno.NibblerEntity;
-import com.slendymctendies.goonspvm.item.ModSpawnEggItem;
+import com.slendymctendies.scapecraft.Scapecraft;
 import net.minecraft.entity.EntityType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-@Mod.EventBusSubscriber(modid = GoonsPvM.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = Scapecraft.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModEventBusEvents {
     @SubscribeEvent
     public static void addEntityAttributes(EntityAttributeCreationEvent event){

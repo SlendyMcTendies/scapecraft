@@ -1,7 +1,6 @@
-package com.slendymctendies.goonspvm.item;
+package com.slendymctendies.scapecraft.item;
 
-import com.slendymctendies.goonspvm.GoonsPvM;
-import com.slendymctendies.goonspvm.entity.ModEntityTypes;
+import com.slendymctendies.scapecraft.Scapecraft;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -11,7 +10,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class ModItems {
 
-    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, GoonsPvM.MOD_ID);
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Scapecraft.MOD_ID);
 
     public static final RegistryObject<Item> INFERNALNETHERITEINGOT = ITEMS.register("infernal_netherite_ingot", () -> new Item(new Item.Properties().tab(ModItemGroup.INFERNAL_GROUP)));
     public static final RegistryObject<Item> GLACIALNETHERITEINGOT = ITEMS.register("glacial_netherite_ingot", () -> new Item(new Item.Properties().tab(ModItemGroup.GLACIAL_GROUP)));

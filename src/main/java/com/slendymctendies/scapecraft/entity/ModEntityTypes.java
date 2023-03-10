@@ -1,21 +1,15 @@
-package com.slendymctendies.goonspvm.entity;
+package com.slendymctendies.scapecraft.entity;
 
-import com.slendymctendies.goonspvm.GoonsPvM;
-import com.slendymctendies.goonspvm.entity.inferno.NibblerEntity;
-import net.minecraft.entity.EntityClassification;
+import com.slendymctendies.scapecraft.Scapecraft;
 import net.minecraft.entity.EntityType;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
-@Mod.EventBusSubscriber(modid = GoonsPvM.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = Scapecraft.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModEntityTypes {
-    public static DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITIES, GoonsPvM.MOD_ID);
+    public static DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITIES, Scapecraft.MOD_ID);
 
     /*
     public static final RegistryObject<EntityType<NibblerEntity>> INFERNO_NIBBLER = ENTITY_TYPES.register("inferno_nibbler",
