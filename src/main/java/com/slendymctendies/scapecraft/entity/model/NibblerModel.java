@@ -7,11 +7,36 @@ package com.slendymctendies.scapecraft.entity.model;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+import com.slendymctendies.scapecraft.Main;
 import com.slendymctendies.scapecraft.entity.inferno.NibblerEntity;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
+import net.minecraft.util.ResourceLocation;
+import software.bernie.geckolib3.GeckoLib;
+import software.bernie.geckolib3.model.AnimatedGeoModel;
 
-public class NibblerModel extends EntityModel<NibblerEntity> {
+public class NibblerModel extends AnimatedGeoModel<NibblerEntity> {
+	private static final ResourceLocation MODEL = new ResourceLocation(Main.MOD_ID, "geo/nibbler.geo.json");
+	private static final ResourceLocation TEXTURE = new ResourceLocation(Main.MOD_ID, "textures/entity/nibbler.png");
+	private static final ResourceLocation ANIMATIONS = new ResourceLocation(Main.MOD_ID, "animations/nibbler.animation.json");
+
+	@Override
+	public ResourceLocation getModelLocation(NibblerEntity object) {
+		return MODEL;
+	}
+
+	@Override
+	public ResourceLocation getTextureLocation(NibblerEntity object) {
+		return TEXTURE;
+	}
+
+	@Override
+	public ResourceLocation getAnimationFileLocation(NibblerEntity animatable) {
+		return ANIMATIONS;
+	}
+
+	//Old non-Geckolib Code
+	/*
 	private final ModelRenderer Entity;
 	private final ModelRenderer Body;
 	private final ModelRenderer PincerLeft;
@@ -57,6 +82,8 @@ public class NibblerModel extends EntityModel<NibblerEntity> {
 		Tooth_r2.texOffs(12, 12).addBox(-0.5F, -0.5F, -2.0F, 1.0F, 1.0F, 3.0F, 0.0F, false);
 	}
 
+
+
 	@Override
 	public void setupAnim(NibblerEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch){
 		//previously the render function, render code was moved to a method below
@@ -72,4 +99,7 @@ public class NibblerModel extends EntityModel<NibblerEntity> {
 		modelRenderer.yRot = y;
 		modelRenderer.zRot = z;
 	}
+
+	 */
+
 }

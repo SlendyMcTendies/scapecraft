@@ -11,9 +11,17 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.world.World;
-import net.minecraftforge.client.model.animation.Animation;
+import software.bernie.geckolib3.core.IAnimatable;
+import software.bernie.geckolib3.core.PlayState;
+import software.bernie.geckolib3.core.builder.AnimationBuilder;
+import software.bernie.geckolib3.core.builder.ILoopType;
+import software.bernie.geckolib3.core.controller.AnimationController;
+import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
+import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
-public class NibblerEntity extends MonsterEntity {
+public class NibblerEntity extends MonsterEntity implements IAnimatable {
 
     public NibblerEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
@@ -70,6 +78,23 @@ public class NibblerEntity extends MonsterEntity {
 
     protected boolean isMovementNoisy() {
         return false;
+    }
+
+    private AnimationFactory animFactory = GeckoLibUtil.createFactory(this);
+
+    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+        event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.nibbler.pinchattack", ILoopType.EDefaultLoopTypes.PLAY_ONCE));
+        return PlayState.CONTINUE;
+    }
+
+    @Override
+    public void registerControllers(AnimationData data){
+        data.addAnimationController(new AnimationController<NibblerEntity>(this, "controller", 0, this::predicate));
+    }
+
+    @Override
+    public AnimationFactory getFactory() {
+        return this.animFactory;
     }
 
 }

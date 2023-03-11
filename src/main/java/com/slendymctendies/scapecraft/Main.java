@@ -4,6 +4,7 @@ import com.slendymctendies.scapecraft.entity.EntityHandler;
 import com.slendymctendies.scapecraft.entity.render.NibblerRenderer;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
