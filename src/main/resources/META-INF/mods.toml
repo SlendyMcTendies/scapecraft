@@ -37,7 +37,7 @@ displayName="Scapecraft" #mandatory
 logoFile="examplemod.png" #optional
 
 # A text field displayed in the mod UI
-credits="Mojang, Microsoft, Bob Mowzie" #optional
+credits="Mojang, Microsoft, Bob Mowzie, Kaupenjoe" #optional
 
 # A text field displayed in the mod UI
 authors="SlendyMcTendies" #optional
