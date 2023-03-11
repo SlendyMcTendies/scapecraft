@@ -1,20 +1,17 @@
 package com.slendymctendies.scapecraft.entity.inferno;
 
-import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.*;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-
 public class NibblerEntity extends MonsterEntity {
-    public NibblerEntity(EntityType<? extends MonsterEntity> p_i48553_1_, World p_i48553_2_) {
-        super(p_i48553_1_, p_i48553_2_);
+
+    public NibblerEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
+        super(type, worldIn);
     }
 
     public static AttributeModifierMap.MutableAttribute createAttributes() {
@@ -41,32 +38,5 @@ public class NibblerEntity extends MonsterEntity {
 
     protected boolean isMovementNoisy() {
         return false;
-    }
-
-    protected SoundEvent getAmbientSound() {
-        return SoundEvents.SILVERFISH_AMBIENT;
-    }
-
-    protected SoundEvent getHurtSound(DamageSource p_184601_1_) {
-        return SoundEvents.SILVERFISH_HURT;
-    }
-
-    protected SoundEvent getDeathSound() {
-        return SoundEvents.SILVERFISH_DEATH;
-    }
-
-    protected void playStepSound(BlockPos p_180429_1_, BlockState p_180429_2_) {
-        this.playSound(SoundEvents.SILVERFISH_STEP, 0.15F, 1.0F);
-    }
-
-    public void tick() {
-        this.yBodyRot = this.yRot;
-        super.tick();
-        //System.out.println(createAttributes());
-    }
-
-    public void setYBodyRot(float p_181013_1_) {
-        this.yRot = p_181013_1_;
-        super.setYBodyRot(p_181013_1_);
     }
 }

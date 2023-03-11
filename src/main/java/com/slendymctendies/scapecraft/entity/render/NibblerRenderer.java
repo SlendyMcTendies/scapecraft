@@ -1,6 +1,6 @@
 package com.slendymctendies.scapecraft.entity.render;
 
-import com.slendymctendies.scapecraft.Scapecraft;
+import com.slendymctendies.scapecraft.Main;
 import com.slendymctendies.scapecraft.entity.inferno.NibblerEntity;
 import com.slendymctendies.scapecraft.entity.model.NibblerModel;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
@@ -19,7 +19,7 @@ public class NibblerRenderer extends MobRenderer<NibblerEntity, EntityModel<Nibb
     //Removed extraneous Parameters from NibblerRenderer
     /*, EntityModel<InfernoNibblerEntity> p_i50961_2_, float p_i50961_3_*/
 
-    public static final ResourceLocation TEXTURE = new ResourceLocation(Scapecraft.MOD_ID, "textures/entity/nibbler.png");
+    public static final ResourceLocation TEXTURE = new ResourceLocation(Main.MOD_ID, "textures/entity/nibbler.png");
 
     @Override
     public ResourceLocation getTextureLocation(NibblerEntity p_110775_1_) {

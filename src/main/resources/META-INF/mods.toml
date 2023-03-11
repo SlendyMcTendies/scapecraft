@@ -1,4 +1,4 @@
-# This is an example mods.toml file. It contains the data relating to the loading mods.
+# This is an slendymctendies mods.toml file. It contains the data relating to the loading mods.
 # There are several mandatory fields (#mandatory), and many more that are optional (#optional).
 # The overall format is standard TOML format, v0.5.0.
 # Note that there are a couple of TOML lists in this file.
@@ -24,7 +24,7 @@ modId="scapecraft" #mandatory
 # The version number of the mod - there's a few well known ${} variables useable here or just hardcode it
 # ${file.jarVersion} will substitute the value of the Implementation-Version as read from the mod's JAR file metadata
 # see the associated build.gradle script for how to populate this completely automatically during a build
-version="1.16.5-DEV-0.0.1" #mandatory
+version="1.16.5-DEV-0.0.2" #mandatory
 
  # A display name for the mod
 displayName="Scapecraft" #mandatory
@@ -37,15 +37,16 @@ displayName="Scapecraft" #mandatory
 logoFile="examplemod.png" #optional
 
 # A text field displayed in the mod UI
-credits="Mojang, Microsoft, Kaupenjoe, BobMowzie" #optional
+credits="Mojang, Microsoft, Bob Mowzie" #optional
 
 # A text field displayed in the mod UI
 authors="SlendyMcTendies" #optional
 
 # The description text for the mod (multi line!) (#mandatory)
 description='''
-SCapecraft - Runescape in Minecraft - Development Version
+Minecraft Mod implementing Items and Creatures from Runescape
 '''
+
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
 [[dependencies.examplemod]] #optional
     # the modid of the dependency
@@ -58,10 +59,12 @@ SCapecraft - Runescape in Minecraft - Development Version
     ordering="NONE"
     # Side this dependency is applied on - BOTH, CLIENT or SERVER
     side="BOTH"
+
 # Here's another dependency
 [[dependencies.examplemod]]
     modId="minecraft"
     mandatory=true
+
 # This version range declares a minimum of the current minecraft version up to but not including the next major version
     versionRange="[1.16.5,1.17)"
     ordering="NONE"
