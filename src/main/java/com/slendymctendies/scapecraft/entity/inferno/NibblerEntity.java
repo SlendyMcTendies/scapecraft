@@ -32,9 +32,11 @@ public class NibblerEntity extends MonsterEntity {
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
     }
 
+    /*
     protected int getExperienceReward(PlayerEntity p_70693_1_){
         return 0;
     }
+     */
 
     protected boolean isMovementNoisy() {
         return false;
