@@ -11,6 +11,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.world.World;
+import software.bernie.geckolib3.core.AnimationState;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -83,13 +84,21 @@ public class NibblerEntity extends MonsterEntity implements IAnimatable {
     private AnimationFactory animFactory = GeckoLibUtil.createFactory(this);
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.nibbler.pinchattack", ILoopType.EDefaultLoopTypes.PLAY_ONCE));
+        return null;
+    }
+
+    private PlayState attackPredicate(AnimationEvent event){
+        if(this.swinging && event.getController().getAnimationState().equals(AnimationState.Stopped)){
+            event.getController().markNeedsReload();
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.nibbler.pinchattack", ILoopType.EDefaultLoopTypes.PLAY_ONCE));
+            this.swinging = false;
+        }
         return PlayState.CONTINUE;
     }
 
     @Override
     public void registerControllers(AnimationData data){
-        data.addAnimationController(new AnimationController<NibblerEntity>(this, "controller", 0, this::predicate));
+        data.addAnimationController(new AnimationController<NibblerEntity>(this, "attackController", 0, this::attackPredicate));
     }
 
     @Override
