@@ -1,11 +1,11 @@
 package com.slendymctendies.scapecraft;
 
 import com.slendymctendies.scapecraft.entity.EntityHandler;
+import com.slendymctendies.scapecraft.entity.render.BatRenderer;
 import com.slendymctendies.scapecraft.entity.render.NibblerRenderer;
 import com.slendymctendies.scapecraft.item.ItemHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -64,6 +64,8 @@ public class Main
         LOGGER.info("Got game settings {}", event.getMinecraftSupplier().get().options);
 
         RenderingRegistry.registerEntityRenderingHandler(EntityHandler.INFERNO_NIBBLER.get(), NibblerRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(EntityHandler.INFERNO_BAT.get(), BatRenderer::new);
+        //RenderingRegistry.registerEntityRenderingHandler(EntityHandler.JALBATPROJECTILE_ENTITY.get(), JalBatProjectileRenderer::new);
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event)

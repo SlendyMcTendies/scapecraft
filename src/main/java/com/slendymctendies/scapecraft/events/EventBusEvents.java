@@ -2,6 +2,7 @@ package com.slendymctendies.scapecraft.events;
 
 import com.slendymctendies.scapecraft.Main;
 import com.slendymctendies.scapecraft.entity.EntityHandler;
+import com.slendymctendies.scapecraft.entity.inferno.BatEntity;
 import com.slendymctendies.scapecraft.entity.inferno.NibblerEntity;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -12,5 +13,6 @@ public class EventBusEvents {
     @SubscribeEvent
     public static void addEntityAttributes(EntityAttributeCreationEvent event) {
         event.put(EntityHandler.INFERNO_NIBBLER.get(), NibblerEntity.createAttributes().build());
+        event.put(EntityHandler.INFERNO_BAT.get(), BatEntity.createAttributes().build());
     }
 }

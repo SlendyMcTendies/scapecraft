@@ -1,3 +1,4 @@
+/*
 package com.slendymctendies.scapecraft.entity.projectile;
 
 import com.slendymctendies.scapecraft.entity.EntityHandler;
@@ -28,3 +29,4 @@ public class JalBatProjectileEntity extends AbstractArrowEntity {
         return new ItemStack(this.referenceItem);
     }
 }
+*/
