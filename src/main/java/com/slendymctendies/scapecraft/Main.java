@@ -2,6 +2,7 @@ package com.slendymctendies.scapecraft;
 
 import com.slendymctendies.scapecraft.entity.EntityHandler;
 import com.slendymctendies.scapecraft.entity.render.NibblerRenderer;
+import com.slendymctendies.scapecraft.item.ItemHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
@@ -36,15 +37,16 @@ public class Main
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         EntityHandler.register(eventBus);
+        ItemHandler.register(eventBus);
 
         // Register the setup method for modloading
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
+        eventBus.addListener(this::setup);
         // Register the enqueueIMC method for modloading
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
+        eventBus.addListener(this::enqueueIMC);
         // Register the processIMC method for modloading
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
+        eventBus.addListener(this::processIMC);
         // Register the doClientStuff method for modloading
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
+        eventBus.addListener(this::doClientStuff);
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
