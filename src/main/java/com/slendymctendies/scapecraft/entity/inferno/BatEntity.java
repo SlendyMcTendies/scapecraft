@@ -1,29 +1,26 @@
 package com.slendymctendies.scapecraft.entity.inferno;
 
 //import com.slendymctendies.scapecraft.entity.projectile.JalBatProjectileEntity;
-import com.slendymctendies.scapecraft.item.ItemHandler;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.controller.MovementController;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
-import net.minecraft.entity.ai.goal.RangedAttackGoal;
-import net.minecraft.entity.monster.GhastEntity;
+import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.TridentEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.entity.projectile.ArrowEntity;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
-import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import software.bernie.geckolib3.core.AnimationState;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -38,7 +35,9 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 import java.util.EnumSet;
 import java.util.Random;
 
-public class BatEntity extends FlyingEntity implements IAnimatable, IRangedAttackMob, IMob {
+public class BatEntity extends FlyingEntity implements IAnimatable, IMob {
+    private static final DataParameter<Boolean> DATA_IS_CHARGING = EntityDataManager.defineId(BatEntity.class, DataSerializers.BOOLEAN);
+    //private int explosionPower = 0;
 
     public BatEntity(EntityType<? extends FlyingEntity> type, World worldIn) {
 
@@ -47,12 +46,32 @@ public class BatEntity extends FlyingEntity implements IAnimatable, IRangedAttac
         this.moveControl = new BatEntity.MoveHelperController(this);
     }
 
+    @OnlyIn(Dist.CLIENT)
+    public boolean isCharging() {
+        return this.entityData.get(DATA_IS_CHARGING);
+    }
+
+    public void setCharging(boolean p_175454_1_) {
+        this.entityData.set(DATA_IS_CHARGING, p_175454_1_);
+    }
+
+    /*
+    public int getExplosionPower() {
+        return this.explosionPower;
+    }
+     */
+
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(DATA_IS_CHARGING, false);
+    }
+
     //--ATTRIBUTES--
     public static AttributeModifierMap.MutableAttribute createAttributes() {
         return MonsterEntity.createMonsterAttributes()
                 .add(Attributes.ATTACK_DAMAGE, 9.0D)
                 .add(Attributes.MAX_HEALTH, 25D)
-                .add(Attributes.MOVEMENT_SPEED, 0.30D)
+                .add(Attributes.MOVEMENT_SPEED, 0.15D)
                 .add(Attributes.FOLLOW_RANGE, 64.0D);
     }
 
@@ -81,15 +100,9 @@ public class BatEntity extends FlyingEntity implements IAnimatable, IRangedAttac
     protected void registerGoals() {
         this.goalSelector.addGoal(5, new BatEntity.RandomFlyGoal(this));
         this.goalSelector.addGoal(7, new BatEntity.LookAroundGoal(this));
-        this.goalSelector.addGoal(7, new BatEntity.HungerDartGoal(this, 1.0D, 40, 10.0F));
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, 10, true, false, (p_213812_1_) -> {
-            return Math.abs(p_213812_1_.getY() - this.getY()) <= 4.0D;
-        }));
-    }
-
-    @Override
-    public void performRangedAttack(LivingEntity target, float p_82196_2_) {
-
+        //this.goalSelector.addGoal(0, new LookAtGoal(this, PlayerEntity.class, 1, 100f));
+        this.goalSelector.addGoal(0, new BatEntity.FireballAttackGoal(this));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, 10, true, false, (p_213812_1_) -> Math.abs(p_213812_1_.getY() - this.getY()) <= 4.0D));
     }
 
     static class MoveHelperController extends MovementController {
@@ -181,7 +194,7 @@ public class BatEntity extends FlyingEntity implements IAnimatable, IRangedAttac
         public void tick() {
             if (this.JalBat.getTarget() == null) {
                 Vector3d vector3d = this.JalBat.getDeltaMovement();
-                this.JalBat.yRot = -((float) MathHelper.atan2(vector3d.x, vector3d.z)) * (180F / (float)Math.PI);
+                this.JalBat.yRot = -((float) MathHelper.atan2(vector3d.x, vector3d.z)) * (90F / (float)Math.PI);
                 this.JalBat.yBodyRot = this.JalBat.yRot;
             } else {
                 LivingEntity livingentity = this.JalBat.getTarget();
@@ -189,7 +202,7 @@ public class BatEntity extends FlyingEntity implements IAnimatable, IRangedAttac
                 if (livingentity.distanceToSqr(this.JalBat) < 4096.0D) {
                     double d1 = livingentity.getX() - this.JalBat.getX();
                     double d2 = livingentity.getZ() - this.JalBat.getZ();
-                    this.JalBat.yRot = -((float)MathHelper.atan2(d1, d2)) * (180F / (float)Math.PI);
+                    this.JalBat.yRot = -((float)MathHelper.atan2(d1, d2)) * (90F / (float)Math.PI);
                     this.JalBat.yBodyRot = this.JalBat.yRot;
                 }
             }
@@ -197,15 +210,71 @@ public class BatEntity extends FlyingEntity implements IAnimatable, IRangedAttac
         }
     }
 
-    static class HungerDartGoal extends RangedAttackGoal {
+    static class FireballAttackGoal extends Goal {
         private final BatEntity JalBat;
+        public int chargeTime;
 
-        public HungerDartGoal(IRangedAttackMob attacker, double var1, int var2, float var3){
-            super(attacker, var1, var2, var3);
-            this.JalBat = (BatEntity)attacker;
+        public FireballAttackGoal(BatEntity p_i45837_1_) {
+            this.JalBat = p_i45837_1_;
         }
 
-        public boolean canUse() {return super.canUse();}
+        public boolean canUse() {
+            return this.JalBat.getTarget() != null;
+        }
+
+        public void start() {
+            this.chargeTime = 0;
+        }
+
+        public void stop() {
+            this.JalBat.setCharging(false);
+        }
+
+        public void tick() {
+            LivingEntity livingentity = this.JalBat.getTarget();
+            double d0 = 64.0D;
+            if (livingentity.distanceToSqr(this.JalBat) < 4096.0D && this.JalBat.canSee(livingentity)) {
+                World world = this.JalBat.level;
+                ++this.chargeTime;
+
+                //Force Bat to look at Target, which is "livingentity" (?)
+                this.JalBat.lookControl.setLookAt(livingentity, 2.0f, 2.0f);
+
+                //Sound Event
+                /*
+                if (this.chargeTime == 10 && !this.JalBat.isSilent()) {
+                    world.levelEvent(null, 1015, this.JalBat.blockPosition(), 0);
+                }*/
+
+
+                if (this.chargeTime == 20) {
+                    double d1 = 4.0D;
+                    Vector3d vector3d = this.JalBat.getViewVector(1.0F);
+                    double d2 = livingentity.getX() - (this.JalBat.getX() + vector3d.x * 4.0D);
+                    double d3 = livingentity.getY(0.5D) - (0.5D + this.JalBat.getY(0.5D));
+                    double d4 = livingentity.getZ() - (this.JalBat.getZ() + vector3d.z * 4.0D);
+
+                    //Sound Event
+                    /*
+                    if (!this.JalBat.isSilent()) {
+                        world.levelEvent((PlayerEntity)null, 1016, this.JalBat.blockPosition(), 0);
+                    }*/
+
+
+                    ArrowEntity arrowEntity = new ArrowEntity(world, this.JalBat);
+                    //FireballEntity fireballentity = new FireballEntity(world, this.JalBat, d2, d3, d4);
+                    //arrowEntity.explosionPower = this.JalBat.getExplosionPower();
+                    arrowEntity.setPos(this.JalBat.getX() + vector3d.x * 4.0D, this.JalBat.getY(0.5D) + 0.5D, arrowEntity.getZ() + vector3d.z * 4.0D);
+                    arrowEntity.setDeltaMovement(vector3d.scale((double)0.99f*2));
+                    world.addFreshEntity(arrowEntity);
+                    this.chargeTime = -40;
+                }
+            } else if (this.chargeTime > 0) {
+                --this.chargeTime;
+            }
+
+            this.JalBat.setCharging(this.chargeTime > 10);
+        }
     }
 
     //--ANIMATION FACTORY--
