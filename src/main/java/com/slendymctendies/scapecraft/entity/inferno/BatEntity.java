@@ -100,8 +100,7 @@ public class BatEntity extends FlyingEntity implements IAnimatable, IMob {
     protected void registerGoals() {
         this.goalSelector.addGoal(5, new BatEntity.RandomFlyGoal(this));
         this.goalSelector.addGoal(7, new BatEntity.LookAroundGoal(this));
-        //this.goalSelector.addGoal(0, new LookAtGoal(this, PlayerEntity.class, 1, 100f));
-        this.goalSelector.addGoal(0, new BatEntity.FireballAttackGoal(this));
+        this.goalSelector.addGoal(0, new BatEntity.HungerDartAttackGoal(this));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, 10, true, false, (p_213812_1_) -> Math.abs(p_213812_1_.getY() - this.getY()) <= 4.0D));
     }
 
@@ -210,12 +209,12 @@ public class BatEntity extends FlyingEntity implements IAnimatable, IMob {
         }
     }
 
-    static class FireballAttackGoal extends Goal {
+    static class HungerDartAttackGoal extends Goal {
         private final BatEntity JalBat;
         public int chargeTime;
 
-        public FireballAttackGoal(BatEntity p_i45837_1_) {
-            this.JalBat = p_i45837_1_;
+        HungerDartAttackGoal(BatEntity jalBat) {
+            JalBat = jalBat;
         }
 
         public boolean canUse() {
@@ -237,40 +236,32 @@ public class BatEntity extends FlyingEntity implements IAnimatable, IMob {
                 World world = this.JalBat.level;
                 ++this.chargeTime;
 
-                //Force Bat to look at Target, which is "livingentity" (?)
+                //Force Bat to look at Target, which is "livingentity"
                 this.JalBat.lookControl.setLookAt(livingentity, 2.0f, 2.0f);
 
-                //Sound Event
-                /*
-                if (this.chargeTime == 10 && !this.JalBat.isSilent()) {
-                    world.levelEvent(null, 1015, this.JalBat.blockPosition(), 0);
-                }*/
-
-
-                if (this.chargeTime == 20) {
+                if (this.chargeTime >= 20) {
                     double d1 = 4.0D;
                     Vector3d vector3d = this.JalBat.getViewVector(1.0F);
-                    double d2 = livingentity.getX() - (this.JalBat.getX() + vector3d.x * 4.0D);
+                    double d2 = livingentity.getX() - (this.JalBat.getX() + vector3d.x);
                     double d3 = livingentity.getY(0.5D) - (0.5D + this.JalBat.getY(0.5D));
-                    double d4 = livingentity.getZ() - (this.JalBat.getZ() + vector3d.z * 4.0D);
+                    double d4 = livingentity.getZ() - (this.JalBat.getZ() + vector3d.z);
 
-                    //Sound Event
-                    /*
-                    if (!this.JalBat.isSilent()) {
-                        world.levelEvent((PlayerEntity)null, 1016, this.JalBat.blockPosition(), 0);
-                    }*/
-
-
+                    //Arrow Properties & Spawning
                     ArrowEntity arrowEntity = new ArrowEntity(world, this.JalBat);
-                    //FireballEntity fireballentity = new FireballEntity(world, this.JalBat, d2, d3, d4);
-                    //arrowEntity.explosionPower = this.JalBat.getExplosionPower();
                     arrowEntity.setPos(this.JalBat.getX() + vector3d.x * 4.0D, this.JalBat.getY(0.5D) + 0.5D, arrowEntity.getZ() + vector3d.z * 4.0D);
-                    arrowEntity.setDeltaMovement(vector3d.scale((double)0.99f*2));
+
+                    // Target [X, Y, Z] Coordinates, Speed, Dispersion
+                    arrowEntity.shoot(d2, d3+0.5d, d4, 3.0f, 2.0f);
+
+                    //create and apply Hunger effect to arrow
+                    EffectInstance hungerEffect = new EffectInstance(Effects.HUNGER, 400, 1);
+                    arrowEntity.addEffect(hungerEffect);
+
                     world.addFreshEntity(arrowEntity);
                     this.chargeTime = -40;
                 }
             } else if (this.chargeTime > 0) {
-                --this.chargeTime;
+                this.chargeTime = 0;
             }
 
             this.JalBat.setCharging(this.chargeTime > 10);
