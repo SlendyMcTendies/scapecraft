@@ -1,6 +1,9 @@
 package com.slendymctendies.scapecraft.entity.inferno;
 
 import com.slendymctendies.scapecraft.entity.client.JalBatRenderer;
+import com.slendymctendies.scapecraft.entity.projectile.JalBatProjectileEntity;
+import com.slendymctendies.scapecraft.item.ItemHandler;
+import com.slendymctendies.scapecraft.item.projectile.JalBatProjectileItem;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -20,6 +23,7 @@ import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Arrow;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -202,12 +206,13 @@ public class JalBatEntity extends FlyingMob implements IAnimatable, Enemy {
                         double d3 = livingentity.getY(0.5D) - (0.5D + this.bat.getY(0.5D));
                         double d4 = livingentity.getZ() - (this.bat.getZ() + vec3.z * 4.0D);
 
-                        Arrow arrowEntity = new Arrow(level, this.bat);
-                        arrowEntity.setPos(this.bat.getX() + vec3.x * 4.0D, this.bat.getY(0.5D) + 0.5D, arrowEntity.getZ() + vec3.z * 4.0D);
-                        arrowEntity.shoot(d2, d3+0.5d, d4, 3.0f, 2.0f);
+                        JalBatProjectileItem dartItem = new JalBatProjectileItem(new Item.Properties());
+                        JalBatProjectileEntity dartEntity = new JalBatProjectileEntity(this.bat, level, dartItem);
+                        dartEntity.setPos(this.bat.getX() + vec3.x * 4.0D, this.bat.getY(0.5D) + 0.5D, dartEntity.getZ() + vec3.z * 4.0D);
+                        dartEntity.shoot(d2, d3+0.5d, d4, 3.0f, 2.0f);
                         MobEffectInstance hungerEffect = new MobEffectInstance(MobEffects.HUNGER, 400, 1);
-                        arrowEntity.addEffect(hungerEffect);
-                        level.addFreshEntity(arrowEntity);
+                        dartEntity.addEffect(hungerEffect);
+                        level.addFreshEntity(dartEntity);
                         this.chargeTime = -40;
                     }
                 } else if (this.chargeTime > 0) {
