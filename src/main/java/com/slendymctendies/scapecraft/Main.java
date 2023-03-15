@@ -1,19 +1,27 @@
 package com.slendymctendies.scapecraft;
 
 import com.mojang.logging.LogUtils;
+import com.slendymctendies.scapecraft.entity.EntityHandler;
+import com.slendymctendies.scapecraft.entity.client.JalBatRenderer;
+import com.slendymctendies.scapecraft.entity.client.NibblerRenderer;
+import com.slendymctendies.scapecraft.item.ItemHandler;
+import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
+import software.bernie.geckolib3.GeckoLib;
 
 import java.util.stream.Collectors;
 
@@ -28,15 +36,23 @@ public class Main
 
     public Main()
     {
-        // Register the setup method for modloading
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
-        // Register the enqueueIMC method for modloading
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
-        // Register the processIMC method for modloading
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
+        IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
+
+        ItemHandler.register(eventBus);
+        EntityHandler.register(eventBus);
+
+        eventBus.addListener(this::setup);
+        eventBus.addListener(this::clientSetup);
+
+        GeckoLib.initialize();
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
+    }
+
+    private void clientSetup(final FMLClientSetupEvent event){
+        EntityRenderers.register(EntityHandler.NIBBLER.get(), NibblerRenderer::new);
+        EntityRenderers.register(EntityHandler.JALBAT.get(), JalBatRenderer::new);
     }
 
     private void setup(final FMLCommonSetupEvent event)
