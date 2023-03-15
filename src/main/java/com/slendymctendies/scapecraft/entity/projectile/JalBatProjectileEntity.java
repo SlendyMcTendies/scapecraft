@@ -3,6 +3,7 @@ package com.slendymctendies.scapecraft.entity.projectile;
 import com.google.common.collect.Sets;
 import com.slendymctendies.scapecraft.entity.EntityHandler;
 import com.slendymctendies.scapecraft.item.ItemHandler;
+import com.slendymctendies.scapecraft.item.projectile.JalBatProjectileItem;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -30,9 +31,9 @@ public class JalBatProjectileEntity extends AbstractArrow {
         this.referenceItem = ItemHandler.JALBAT_PROJECTILE.get();
     }
 
-    public JalBatProjectileEntity(LivingEntity pShooter, Level pLevel, Item referenceItem) {
+    public JalBatProjectileEntity(LivingEntity pShooter, Level pLevel) {
         super(EntityHandler.JALBAT_PROJECTILEENTITY.get(), pShooter, pLevel);
-        this.referenceItem = referenceItem;
+        this.referenceItem = ItemHandler.JALBAT_PROJECTILE.get();
     }
 
     //public JalBatProjectileEntity(Level pLevel, LivingEntity pShooter) {super(EntityType.ARROW, pShooter, pLevel);}
@@ -44,6 +45,6 @@ public class JalBatProjectileEntity extends AbstractArrow {
 
     @Override
     public ItemStack getPickupItem() {
-        return null;
+        return new ItemStack(ItemHandler.JALBAT_PROJECTILE.get());
     }
 }

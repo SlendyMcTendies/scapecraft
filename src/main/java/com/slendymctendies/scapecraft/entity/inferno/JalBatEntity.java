@@ -206,8 +206,8 @@ public class JalBatEntity extends FlyingMob implements IAnimatable, Enemy {
                         double d3 = livingentity.getY(0.5D) - (0.5D + this.bat.getY(0.5D));
                         double d4 = livingentity.getZ() - (this.bat.getZ() + vec3.z * 4.0D);
 
-                        JalBatProjectileItem dartItem = new JalBatProjectileItem(new Item.Properties());
-                        JalBatProjectileEntity dartEntity = new JalBatProjectileEntity(this.bat, level, dartItem);
+                        //JalBatProjectileItem dartItem = new JalBatProjectileItem(new Item.Properties());
+                        JalBatProjectileEntity dartEntity = new JalBatProjectileEntity(this.bat, level);
                         dartEntity.setPos(this.bat.getX() + vec3.x * 4.0D, this.bat.getY(0.5D) + 0.5D, dartEntity.getZ() + vec3.z * 4.0D);
                         dartEntity.shoot(d2, d3+0.5d, d4, 3.0f, 2.0f);
                         MobEffectInstance hungerEffect = new MobEffectInstance(MobEffects.HUNGER, 400, 1);
@@ -272,17 +272,17 @@ public class JalBatEntity extends FlyingMob implements IAnimatable, Enemy {
         event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.bat.flap", true));
         return PlayState.CONTINUE;
     }
-
+/*
     private PlayState attackPredicate(AnimationEvent event){
         event.getController().markNeedsReload();
         event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.bat.dartattack", false));
         return PlayState.CONTINUE;
     }
-
+*/
     @Override
     public void registerControllers(AnimationData data) {
         data.addAnimationController(new AnimationController<JalBatEntity>(this, "defaultController", 0, this::predicate));
-        data.addAnimationController(new AnimationController<JalBatEntity>(this, "attackController", 0, this::attackPredicate));
+        //data.addAnimationController(new AnimationController<JalBatEntity>(this, "attackController", 0, this::attackPredicate));
     }
 
     @Override
