@@ -7,6 +7,8 @@ import com.slendymctendies.scapecraft.item.projectile.JalBatProjectileItem;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -73,7 +75,7 @@ public class JalBatEntity extends FlyingMob implements IAnimatable, Enemy {
         this.goalSelector.addGoal(4, new JalBatEntity.RandomFlyGoal(this));
         this.goalSelector.addGoal(2, new JalBatEntity.BatLookGoal(this));
         this.goalSelector.addGoal(2, new JalBatEntity.FlyToTargetGoal(this));
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, true, (p_32755_) -> {
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, 10, false, true, (p_32755_) -> {
             return Math.abs(p_32755_.getY() - this.getY()) <= 4.0D;
         }));
     }
@@ -208,8 +210,10 @@ public class JalBatEntity extends FlyingMob implements IAnimatable, Enemy {
 
                         //JalBatProjectileItem dartItem = new JalBatProjectileItem(new Item.Properties());
                         JalBatProjectileEntity dartEntity = new JalBatProjectileEntity(this.bat, level);
+                        SoundEvent shootSound = SoundEvents.ARROW_SHOOT;
                         dartEntity.setPos(this.bat.getX() + vec3.x * 4.0D, this.bat.getY(0.5D) + 0.5D, dartEntity.getZ() + vec3.z * 4.0D);
                         dartEntity.shoot(d2, d3+0.5d, d4, 3.0f, 2.0f);
+                        dartEntity.playSound(shootSound, 1.0f, 1.0f);
                         MobEffectInstance hungerEffect = new MobEffectInstance(MobEffects.HUNGER, 400, 1);
                         dartEntity.addEffect(hungerEffect);
                         level.addFreshEntity(dartEntity);
