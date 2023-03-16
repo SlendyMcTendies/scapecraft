@@ -35,7 +35,7 @@ public class EntityHandler {
 
     public static final RegistryObject<EntityType<BlobEntity>> BLOB = ENTITY_TYPES.register("blob",
             () -> EntityType.Builder.of(BlobEntity::new, MobCategory.MONSTER)
-                    .sized(1.0f, 1.69f)
+                    .sized(1.0f, 1.6875f)
                     .build(new ResourceLocation(Main.MOD_ID, "blob").toString()));
 
     public static void register(IEventBus eventBus){

@@ -2,6 +2,7 @@ package com.slendymctendies.scapecraft.events;
 
 import com.slendymctendies.scapecraft.Main;
 import com.slendymctendies.scapecraft.entity.EntityHandler;
+import com.slendymctendies.scapecraft.entity.inferno.BlobEntity;
 import com.slendymctendies.scapecraft.entity.inferno.JalBatEntity;
 import com.slendymctendies.scapecraft.entity.inferno.NibblerEntity;
 import com.slendymctendies.scapecraft.entity.projectile.JalBatProjectileRenderer;
@@ -17,6 +18,7 @@ public class EventBusEvents {
     public static void setAttributesEvent(EntityAttributeCreationEvent event){
         event.put(EntityHandler.NIBBLER.get(), NibblerEntity.setAttributes());
         event.put(EntityHandler.JALBAT.get(), JalBatEntity.setAttributes());
+        event.put(EntityHandler.BLOB.get(), BlobEntity.setAttributes());
     }
 
     @SubscribeEvent
