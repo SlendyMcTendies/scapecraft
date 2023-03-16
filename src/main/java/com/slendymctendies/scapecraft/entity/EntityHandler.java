@@ -1,6 +1,7 @@
 package com.slendymctendies.scapecraft.entity;
 
 import com.slendymctendies.scapecraft.Main;
+import com.slendymctendies.scapecraft.entity.inferno.BlobEntity;
 import com.slendymctendies.scapecraft.entity.inferno.JalBatEntity;
 import com.slendymctendies.scapecraft.entity.inferno.NibblerEntity;
 import com.slendymctendies.scapecraft.entity.projectile.JalBatProjectileEntity;
@@ -31,6 +32,11 @@ public class EntityHandler {
                     .clientTrackingRange(4)
                     .updateInterval(20)
                     .build(new ResourceLocation(Main.MOD_ID, "jalbat_projectile_entity").toString()));
+
+    public static final RegistryObject<EntityType<BlobEntity>> BLOB = ENTITY_TYPES.register("blob",
+            () -> EntityType.Builder.of(BlobEntity::new, MobCategory.MONSTER)
+                    .sized(1.0f, 1.69f)
+                    .build(new ResourceLocation(Main.MOD_ID, "blob").toString()));
 
     public static void register(IEventBus eventBus){
         ENTITY_TYPES.register(eventBus);
