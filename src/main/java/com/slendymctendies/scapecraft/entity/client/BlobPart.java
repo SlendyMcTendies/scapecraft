@@ -1,34 +1,40 @@
 package com.slendymctendies.scapecraft.entity.client;
 
+import com.slendymctendies.scapecraft.entity.EntityHandler;
+import com.slendymctendies.scapecraft.entity.MultipartEntityBase;
 import com.slendymctendies.scapecraft.entity.inferno.BlobEntity;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.entity.EntityDimensions;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.level.Level;
 
-public class BlobPart extends net.minecraftforge.entity.PartEntity<BlobEntity> {
-    public final BlobEntity parentMob;
-    public final String name;
-    private final EntityDimensions size;
+public class BlobPart extends MultipartEntityBase {
+    private BlobEntity eBlob;
 
-    public BlobPart(BlobEntity parent, String pName, float pWidth, float pHeight) {
-        super(parent);
-        this.size = EntityDimensions.scalable(pWidth, pHeight);
-        this.refreshDimensions();
-        this.parentMob = parent;
-        this.name = pName;
+    public BlobPart(EntityType<?> t, Level world) {
+        super(t, world);
+    }
+
+    /* --UNKNOWN PURPOSE
+    public EntityDragonPart(PlayMessages.SpawnEntity spawnEntity, Level worldIn) {
+        this(IafEntityRegistry.DRAGON_MULTIPART.get(), worldIn);
+    }*/
+
+    public BlobPart(EntityType<?> type, BlobEntity pBlob, float radius, float angleYaw, float offsetY, float sizeX, float sizeY, float damageMultiplier) {
+        super(type, pBlob, radius, angleYaw, offsetY, sizeX, sizeY, damageMultiplier);
+        this.eBlob = pBlob;
+    }
+
+    public BlobPart(BlobEntity parent, float radius, float angleYaw, float offsetY, float sizeX, float sizeY, float damageMultiplier) {
+        super(EntityHandler.BLOB_PART.get(), parent, radius, angleYaw, offsetY, sizeX, sizeY, damageMultiplier);
+        this.eBlob = parent;
     }
 
     @Override
-    protected void defineSynchedData() {
-
+    public void collideWithNearbyEntities() {
     }
 
+    /* --UNKNOWN PURPOSE
     @Override
-    protected void readAdditionalSaveData(CompoundTag pCompound) {
-
-    }
-
-    @Override
-    protected void addAdditionalSaveData(CompoundTag pCompound) {
-
-    }
+    public boolean shouldNotExist() {
+        return this.dragon != null && !this.dragon.isAlive() && !this.dragon.isModelDead();
+    }*/
 }

@@ -24,7 +24,11 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 public class BlobEntity extends Monster implements IAnimatable {
-/*
+
+    private BlobPart body_front;
+    private BlobPart body_back;
+
+/*  --RIPPED FROM ENDER DRAGON
     private final BlobPart[] subEntities;
     public final BlobPart bodyfront;
     public final BlobPart bodyback;
@@ -68,7 +72,63 @@ public class BlobEntity extends Monster implements IAnimatable {
             return true;
         }
     }
-/*
+
+    public void resetBlobParts(float scale){
+        removeBlobParts();
+        body_front = new BlobPart(this, 1.0f, 0f, 0.0f, 1.0f, 1.0f, 1.0f);
+        body_front.copyPosition(this);
+        body_front.setParent(this);
+        body_back = new BlobPart(this, 1.0f, 0f, 1.0f, 1.0f, 1.0f, 1.0f);
+        body_back.copyPosition(this);
+        body_back.setParent(this);
+    }
+
+    public void removeBlobParts(){
+        if(body_front != null){
+            body_front.remove(RemovalReason.DISCARDED);
+            body_front = null;
+        }
+        if(body_back != null){
+            body_back.remove(RemovalReason.DISCARDED);
+            body_back = null;
+        }
+    }
+
+    public void updateBlobParts() {
+        if(body_front != null){
+            if(!body_front.shouldContinuePersisting()){
+                level.addFreshEntity(body_front);
+            }
+            body_front.setParent(this);
+        }
+        if(body_back != null){
+            if(!body_back.shouldContinuePersisting()){
+                level.addFreshEntity(body_back);
+            }
+            body_back.setParent(this);
+        }
+    }
+
+    @Override
+    public boolean requiresCustomPersistence() {
+        return true;
+    }
+
+    @Override
+    public boolean isPersistenceRequired() {
+        return true;
+    }
+
+    public void tick(){
+        super.tick();
+        updateBlobParts();
+    }
+
+    public void kill(){
+        this.remove(RemovalReason.KILLED);
+    }
+
+/* --RIPPED FROM ENDER DRAGON
     private void tickPart(BlobPart pPart, double pOffsetX, double pOffsetY, double pOffsetZ) {
         pPart.setPos(this.getX() + pOffsetX, this.getY() + pOffsetY, this.getZ() + pOffsetZ);
     }

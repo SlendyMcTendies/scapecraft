@@ -1,11 +1,13 @@
 package com.slendymctendies.scapecraft.entity;
 
 import com.slendymctendies.scapecraft.Main;
+import com.slendymctendies.scapecraft.entity.client.BlobPart;
 import com.slendymctendies.scapecraft.entity.inferno.BlobEntity;
 import com.slendymctendies.scapecraft.entity.inferno.JalBatEntity;
 import com.slendymctendies.scapecraft.entity.inferno.NibblerEntity;
 import com.slendymctendies.scapecraft.entity.projectile.JalBatProjectileEntity;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -37,6 +39,11 @@ public class EntityHandler {
             () -> EntityType.Builder.of(BlobEntity::new, MobCategory.MONSTER)
                     .sized(1.0f, 1.6875f)
                     .build(new ResourceLocation(Main.MOD_ID, "blob").toString()));
+
+    public static final RegistryObject<EntityType<Entity>> BLOB_PART = ENTITY_TYPES.register("blobpart",
+            () -> EntityType.Builder.of(BlobPart::new, MobCategory.MISC)
+                    .sized(1.0f, 1.0f)
+                    .build(new ResourceLocation(Main.MOD_ID, "blob_part").toString()));
 
     public static void register(IEventBus eventBus){
         ENTITY_TYPES.register(eventBus);
