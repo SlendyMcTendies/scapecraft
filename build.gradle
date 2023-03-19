@@ -1,30 +1,66 @@
 buildscript {
     repositories {
+<<<<<<< Updated upstream
         // These repositories are only for Gradle plugins, put any other repositories in the repository block further below
         maven { url = 'https://maven.minecraftforge.net' }
+=======
+        maven { url = 'https://files.minecraftforge.net/maven' }
+        maven { url = 'https://maven.parchmentmc.org' }
+        jcenter()
+>>>>>>> Stashed changes
         mavenCentral()
+        maven { url = 'https://repo.spongepowered.org/repository/maven-public/' }
+
     }
+
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+<<<<<<< Updated upstream
+=======
+        classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
+        classpath 'org.parchmentmc:librarian:1.+'
+>>>>>>> Stashed changes
     }
 }
-// Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
-plugins {
-    id 'eclipse'
-    id 'maven-publish'
-}
 apply plugin: 'net.minecraftforge.gradle'
-
+<<<<<<< Updated upstream
+=======
+repositories{
+    maven {
+        name = "CurseForge"
+        url = "https://minecraft.curseforge.com/api/maven/"
+    }
+    maven {
+        name = "Progwml6 maven"
+        url = "https://dvs1.progwml6.com/files/maven/"
+    }
+    maven {
+        name = "ModMaven"
+        url = "https://modmaven.k-4u.nl"
+    }
+    maven {
+        name = "CurseMaven"
+        url = "https://www.cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
+    }
+    maven { url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/' }
+}
+apply plugin: 'eclipse'
+apply plugin: 'maven-publish'
+apply plugin: 'org.parchmentmc.librarian.forgegradle'
+>>>>>>> Stashed changes
 
 version = '1.18.2-DEV-0.0.1'
 group = 'com.slendymctendies.scapecraft' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'scapecraft'
 
-// Mojang ships Java 17 to end users in 1.18+, so your mod should target Java 17.
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
-println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
+println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 minecraft {
+<<<<<<< Updated upstream
     // The mappings can be changed at any time and must be in the following format.
     // Channel:   Version:
     // official   MCVersion             Official field/method names from Mojang mapping files
@@ -41,30 +77,27 @@ minecraft {
     mappings channel: 'official', version: '1.18.2'
 
     // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg') // Currently, this location cannot be changed from the default.
+=======
+    mappings channel: 'parchment', version: '2022.11.06-1.18.2'
+    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+>>>>>>> Stashed changes
 
     // Default run configurations.
     // These can be tweaked, removed, or duplicated as needed.
     runs {
         client {
             workingDirectory project.file('run')
+            property 'mixin.env.refMapRemappingFile', "${project.projectDir}/build/createSrgToMcp/output.srg"
+            arg "-mixin.config="+"citadel.mixins.json"
 
             // Recommended logging data for a userdev environment
-            // The markers can be added/remove as needed separated by commas.
-            // "SCAN": For mods scan.
-            // "REGISTRIES": For firing of registry events.
-            // "REGISTRYDUMP": For getting the contents of all registries.
-            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
 
             // Recommended logging level for the console
-            // You can set various levels here.
-            // Please read: https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
             property 'forge.logging.console.level', 'debug'
 
-            // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
-            property 'forge.enabledGameTestNamespaces', 'scapecraft'
-
             mods {
-                scapecraft {
+                examplemod {
                     source sourceSets.main
                 }
             }
@@ -72,44 +105,18 @@ minecraft {
 
         server {
             workingDirectory project.file('run')
-
-            property 'forge.logging.markers', 'REGISTRIES'
-
-            property 'forge.logging.console.level', 'debug'
-
-            // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
-            property 'forge.enabledGameTestNamespaces', 'scapecraft'
-
-            mods {
-                scapecraft {
-                    source sourceSets.main
-                }
-            }
-        }
-
-        // This run config launches GameTestServer and runs all registered gametests, then exits.
-        // By default, the server will crash when no gametests are provided.
-        // The gametest system is also enabled by default for other run configs under the /test command.
-        gameTestServer {
-            workingDirectory project.file('run')
+            properties 'mixin.env.remapRefMap': 'true'
+            property 'mixin.env.refMapRemappingFile', "${project.projectDir}/build/createSrgToMcp/output.srg"
+            args '--mod', 'examplemod', '--all', '--output', file('src/generated/resources/'), '--existing', sourceSets.main.resources.srcDirs[0]
 
             // Recommended logging data for a userdev environment
-            // The markers can be added/remove as needed separated by commas.
-            // "SCAN": For mods scan.
-            // "REGISTRIES": For firing of registry events.
-            // "REGISTRYDUMP": For getting the contents of all registries.
-            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
 
             // Recommended logging level for the console
-            // You can set various levels here.
-            // Please read: https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
             property 'forge.logging.console.level', 'debug'
 
-            // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
-            property 'forge.enabledGameTestNamespaces', 'scapecraft'
-
             mods {
-                scapecraft {
+                examplemod {
                     source sourceSets.main
                 }
             }
@@ -117,26 +124,35 @@ minecraft {
 
         data {
             workingDirectory project.file('run')
+            properties 'mixin.env.remapRefMap': 'true'
+            property 'mixin.env.refMapRemappingFile', "${project.projectDir}/build/createSrgToMcp/output.srg"
+            args '--mod', 'examplemod', '--all', '--output', file('src/generated/resources/'), '--existing', sourceSets.main.resources.srcDirs[0]
 
-            property 'forge.logging.markers', 'REGISTRIES'
+            // Recommended logging data for a userdev environment
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
 
+            // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
 
             // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
-            args '--mod', 'scapecraft', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+            args '--mod', 'examplemod', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
 
             mods {
-                scapecraft {
+                examplemod {
                     source sourceSets.main
                 }
             }
         }
     }
 }
-
+apply plugin: 'org.spongepowered.mixin'
+mixin {
+    add sourceSets.main, "citadel.refmap.json"
+}
 // Include resources generated by data generators.
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
+<<<<<<< Updated upstream
 repositories {
     // Put repositories for dependencies here
     // ForgeGradle automatically adds the Forge maven and Maven Central for you
@@ -164,28 +180,36 @@ dependencies {
     // For more info...
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
+=======
+dependencies {
+    minecraft 'net.minecraftforge:forge:1.18.2-40.1.52'
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+    compileOnly "curse.maven:citadel4-331936:3683009" // change to 3548061
+    runtimeOnly "curse.maven:citadel4-331936:3683009"
+    implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.18:3.0.57')
+>>>>>>> Stashed changes
 }
 
-// Example for how to get properties into the manifest for reading at runtime.
+// Example for how to get properties into the manifest for reading by the runtime..
 jar {
     manifest {
         attributes([
-                "Specification-Title"     : "scapecraft",
-                "Specification-Vendor"    : "scapecraftsareus",
-                "Specification-Version"   : "1", // We are version 1 of ourselves
-                "Implementation-Title"    : project.name,
-                "Implementation-Version"  : project.jar.archiveVersion,
-                "Implementation-Vendor"   : "scapecraftsareus",
+                "Specification-Title": "alexsmobs",
+                "Specification-Vendor": "alexthe668",
+                "Specification-Version": "1.17.0", // We are version 1 of ourselves
+                "Implementation-Title": project.name,
+                "Implementation-Version": "${version}",
+                "Implementation-Vendor" :"alexthe668",
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
 }
 
-// Example configuration to allow publishing using the maven-publish plugin
+// Example configuration to allow publishing using the maven-publish task
 // This is the preferred method to reobfuscate your jar file
 jar.finalizedBy('reobfJar')
 // However if you are in a multi-project build, dev time needs unobfed jar files, so you can delay the obfuscation until publishing by doing
-// publish.dependsOn('reobfJar')
+//publish.dependsOn('reobfJar')
 
 publishing {
     publications {
@@ -195,11 +219,7 @@ publishing {
     }
     repositories {
         maven {
-            url "file://${project.projectDir}/mcmodsrepo"
+            url "file:///${project.projectDir}/mcmodsrepo"
         }
     }
-}
-
-tasks.withType(JavaCompile).configureEach {
-    options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
 }
