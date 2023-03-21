@@ -25,21 +25,22 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 public class BlobEntity extends Monster implements IAnimatable {
 
+    /*
     private BlobPart body_front;
     private BlobPart body_back;
+    */
 
-/*  --RIPPED FROM ENDER DRAGON
-    private final BlobPart[] subEntities;
-    public final BlobPart bodyfront;
-    public final BlobPart bodyback;
+/*  --RIPPED FROM ENDER DRAGON*/
+    private BlobPart[] subEntities;
+    public BlobPart bodyfront;
+    public BlobPart bodyback;
 
- */
     private AnimationFactory animFactory = new AnimationFactory(this);
     public BlobEntity(EntityType<? extends Monster> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
-        //this.bodyfront = new BlobPart(this, "body_front", 1.0f, 1.69f);
-        //this.bodyback = new BlobPart(this, "body_back", 1.0f, 1.0f);
-        //this.subEntities = new BlobPart[]{this.bodyfront, this.bodyback};
+        this.bodyfront = new BlobPart(this, -1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f);
+        this.bodyback = new BlobPart( this, -1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f);
+        this.subEntities = new BlobPart[]{this.bodyfront, this.bodyback};
     }
 
     public static AttributeSupplier setAttributes() {
@@ -75,37 +76,37 @@ public class BlobEntity extends Monster implements IAnimatable {
 
     public void resetBlobParts(float scale){
         removeBlobParts();
-        body_front = new BlobPart(this, 1.0f, 0f, 0.0f, 1.0f, 1.0f, 1.0f);
-        body_front.copyPosition(this);
-        body_front.setParent(this);
-        body_back = new BlobPart(this, 1.0f, 0f, 1.0f, 1.0f, 1.0f, 1.0f);
-        body_back.copyPosition(this);
-        body_back.setParent(this);
+        bodyfront = new BlobPart(this, 1.0f, 0f, 0.0f, 1.0f, 1.0f, 1.0f);
+        bodyfront.copyPosition(this);
+        bodyfront.setParent(this);
+        bodyback = new BlobPart(this, 1.0f, 0f, 1.0f, 1.0f, 1.0f, 1.0f);
+        bodyback.copyPosition(this);
+        bodyback.setParent(this);
     }
 
     public void removeBlobParts(){
-        if(body_front != null){
-            body_front.remove(RemovalReason.DISCARDED);
-            body_front = null;
+        if(bodyfront != null){
+            bodyfront.remove(RemovalReason.DISCARDED);
+            bodyfront = null;
         }
-        if(body_back != null){
-            body_back.remove(RemovalReason.DISCARDED);
-            body_back = null;
+        if(bodyback != null){
+            bodyback.remove(RemovalReason.DISCARDED);
+            bodyback = null;
         }
     }
 
     public void updateBlobParts() {
-        if(body_front != null){
-            if(!body_front.shouldContinuePersisting()){
-                level.addFreshEntity(body_front);
+        if(bodyfront != null){
+            if(!bodyfront.shouldContinuePersisting()){
+                level.addFreshEntity(bodyfront);
             }
-            body_front.setParent(this);
+            bodyfront.setParent(this);
         }
-        if(body_back != null){
-            if(!body_back.shouldContinuePersisting()){
-                level.addFreshEntity(body_back);
+        if(bodyback != null){
+            if(!bodyback.shouldContinuePersisting()){
+                level.addFreshEntity(bodyback);
             }
-            body_back.setParent(this);
+            bodyback.setParent(this);
         }
     }
 
@@ -121,6 +122,7 @@ public class BlobEntity extends Monster implements IAnimatable {
 
     public void tick(){
         super.tick();
+        //resetBlobParts(1.0f);
         updateBlobParts();
     }
 

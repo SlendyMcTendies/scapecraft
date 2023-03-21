@@ -13,11 +13,6 @@ public class BlobPart extends MultipartEntityBase {
         super(t, world);
     }
 
-    /* --UNKNOWN PURPOSE
-    public EntityDragonPart(PlayMessages.SpawnEntity spawnEntity, Level worldIn) {
-        this(IafEntityRegistry.DRAGON_MULTIPART.get(), worldIn);
-    }*/
-
     public BlobPart(EntityType<?> type, BlobEntity pBlob, float radius, float angleYaw, float offsetY, float sizeX, float sizeY, float damageMultiplier) {
         super(type, pBlob, radius, angleYaw, offsetY, sizeX, sizeY, damageMultiplier);
         this.eBlob = pBlob;
@@ -31,10 +26,4 @@ public class BlobPart extends MultipartEntityBase {
     @Override
     public void collideWithNearbyEntities() {
     }
-
-    /* --UNKNOWN PURPOSE
-    @Override
-    public boolean shouldNotExist() {
-        return this.dragon != null && !this.dragon.isAlive() && !this.dragon.isModelDead();
-    }*/
 }

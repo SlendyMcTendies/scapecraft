@@ -40,10 +40,16 @@ public class EntityHandler {
                     .sized(1.0f, 1.6875f)
                     .build(new ResourceLocation(Main.MOD_ID, "blob").toString()));
 
-    public static final RegistryObject<EntityType<Entity>> BLOB_PART = ENTITY_TYPES.register("blobpart",
-            () -> EntityType.Builder.of(BlobPart::new, MobCategory.MISC)
+    public static final RegistryObject<EntityType<BlobPart>> BLOB_PART = ENTITY_TYPES.register("blobpart",
+            () -> EntityType.Builder.<BlobPart>of(BlobPart::new, MobCategory.MISC)
                     .sized(1.0f, 1.0f)
                     .build(new ResourceLocation(Main.MOD_ID, "blob_part").toString()));
+/*
+    public static final RegistryObject<EntityType<?>> MULTIPART_ENTITY = ENTITY_TYPES.register("multipart_entity",
+            () -> EntityType.Builder.of(MultipartEntityBase::new, MobCategory.MISC)
+                    .sized(1.0f, 1.0f)
+                    .build(new ResourceLocation(Main.MOD_ID, "multipart_entity").toString()));
+    */
 
     public static void register(IEventBus eventBus){
         ENTITY_TYPES.register(eventBus);

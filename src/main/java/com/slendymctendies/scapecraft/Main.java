@@ -2,9 +2,7 @@ package com.slendymctendies.scapecraft;
 
 import com.mojang.logging.LogUtils;
 import com.slendymctendies.scapecraft.entity.EntityHandler;
-import com.slendymctendies.scapecraft.entity.client.BlobRenderer;
-import com.slendymctendies.scapecraft.entity.client.JalBatRenderer;
-import com.slendymctendies.scapecraft.entity.client.NibblerRenderer;
+import com.slendymctendies.scapecraft.entity.client.*;
 import com.slendymctendies.scapecraft.item.ItemHandler;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.world.level.block.Block;
@@ -55,6 +53,7 @@ public class Main
         EntityRenderers.register(EntityHandler.NIBBLER.get(), NibblerRenderer::new);
         EntityRenderers.register(EntityHandler.JALBAT.get(), JalBatRenderer::new);
         EntityRenderers.register(EntityHandler.BLOB.get(), BlobRenderer::new);
+        EntityRenderers.register(EntityHandler.BLOB_PART.get(), EmptyRenderer::new);
     }
 
     private void setup(final FMLCommonSetupEvent event)
