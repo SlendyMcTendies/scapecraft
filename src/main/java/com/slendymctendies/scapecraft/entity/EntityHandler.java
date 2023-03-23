@@ -1,13 +1,13 @@
 package com.slendymctendies.scapecraft.entity;
 
 import com.slendymctendies.scapecraft.Main;
-import com.slendymctendies.scapecraft.entity.client.BlobPart;
+import com.slendymctendies.scapecraft.entity.client.MultipartSegment;
 import com.slendymctendies.scapecraft.entity.inferno.BlobEntity;
 import com.slendymctendies.scapecraft.entity.inferno.JalBatEntity;
 import com.slendymctendies.scapecraft.entity.inferno.NibblerEntity;
+import com.slendymctendies.scapecraft.entity.inferno.SnakeEntity;
 import com.slendymctendies.scapecraft.entity.projectile.JalBatProjectileEntity;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -37,19 +37,18 @@ public class EntityHandler {
 
     public static final RegistryObject<EntityType<BlobEntity>> BLOB = ENTITY_TYPES.register("blob",
             () -> EntityType.Builder.of(BlobEntity::new, MobCategory.MONSTER)
-                    .sized(1.0f, 1.6875f)
+                    .sized(0.9f, 1.6875f)
                     .build(new ResourceLocation(Main.MOD_ID, "blob").toString()));
 
-    public static final RegistryObject<EntityType<BlobPart>> BLOB_PART = ENTITY_TYPES.register("blobpart",
-            () -> EntityType.Builder.<BlobPart>of(BlobPart::new, MobCategory.MISC)
+    public static final RegistryObject<EntityType<MultipartSegment>> MULTIPART_SEGMENT = ENTITY_TYPES.register("multipart_segment",
+            () -> EntityType.Builder.<MultipartSegment>of(MultipartSegment::new, MobCategory.MISC)
                     .sized(1.0f, 1.0f)
-                    .build(new ResourceLocation(Main.MOD_ID, "blob_part").toString()));
-/*
-    public static final RegistryObject<EntityType<?>> MULTIPART_ENTITY = ENTITY_TYPES.register("multipart_entity",
-            () -> EntityType.Builder.of(MultipartEntityBase::new, MobCategory.MISC)
-                    .sized(1.0f, 1.0f)
-                    .build(new ResourceLocation(Main.MOD_ID, "multipart_entity").toString()));
-    */
+                    .build(new ResourceLocation(Main.MOD_ID, "multipart_segment").toString()));
+
+    public static final RegistryObject<EntityType<SnakeEntity>> SNAKE = ENTITY_TYPES.register("snake_entity",
+            () -> EntityType.Builder.of(SnakeEntity::new, MobCategory.MISC)
+                    .sized(0.9f, 5.3125f)
+                    .build(new ResourceLocation(Main.MOD_ID, "snake_entity").toString()));
 
     public static void register(IEventBus eventBus){
         ENTITY_TYPES.register(eventBus);

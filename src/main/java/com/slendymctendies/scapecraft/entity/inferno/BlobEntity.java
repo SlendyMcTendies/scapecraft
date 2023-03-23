@@ -1,7 +1,6 @@
 package com.slendymctendies.scapecraft.entity.inferno;
 
-import com.slendymctendies.scapecraft.entity.client.BlobPart;
-import net.minecraft.util.Mth;
+import com.slendymctendies.scapecraft.entity.client.MultipartSegment;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -9,12 +8,9 @@ import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
-import software.bernie.geckolib3.core.AnimationState;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -25,22 +21,16 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 public class BlobEntity extends Monster implements IAnimatable {
 
-    /*
-    private BlobPart body_front;
-    private BlobPart body_back;
-    */
-
-/*  --RIPPED FROM ENDER DRAGON*/
-    private BlobPart[] subEntities;
-    public BlobPart bodyfront;
-    public BlobPart bodyback;
+    private MultipartSegment[] subEntities;
+    private MultipartSegment bodyfront;
+    private MultipartSegment bodyback;
 
     private AnimationFactory animFactory = new AnimationFactory(this);
     public BlobEntity(EntityType<? extends Monster> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
-        this.bodyfront = new BlobPart(this, -1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f);
-        this.bodyback = new BlobPart( this, -1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f);
-        this.subEntities = new BlobPart[]{this.bodyfront, this.bodyback};
+        this.bodyfront = new MultipartSegment(this, -1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f);
+        this.bodyback = new MultipartSegment( this, -1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f);
+        this.subEntities = new MultipartSegment[]{this.bodyfront, this.bodyback};
     }
 
     public static AttributeSupplier setAttributes() {
@@ -74,12 +64,13 @@ public class BlobEntity extends Monster implements IAnimatable {
         }
     }
 
+    /* Keep method in case it is needed */
     public void resetBlobParts(float scale){
         removeBlobParts();
-        bodyfront = new BlobPart(this, 1.0f, 0f, 0.0f, 1.0f, 1.0f, 1.0f);
+        bodyfront = new MultipartSegment(this, 1.0f, 0f, 0.0f, 1.0f, 1.0f, 1.0f);
         bodyfront.copyPosition(this);
         bodyfront.setParent(this);
-        bodyback = new BlobPart(this, 1.0f, 0f, 1.0f, 1.0f, 1.0f, 1.0f);
+        bodyback = new MultipartSegment(this, 1.0f, 0f, 1.0f, 1.0f, 1.0f, 1.0f);
         bodyback.copyPosition(this);
         bodyback.setParent(this);
     }
@@ -122,7 +113,6 @@ public class BlobEntity extends Monster implements IAnimatable {
 
     public void tick(){
         super.tick();
-        //resetBlobParts(1.0f);
         updateBlobParts();
     }
 
@@ -130,36 +120,6 @@ public class BlobEntity extends Monster implements IAnimatable {
         this.remove(RemovalReason.KILLED);
     }
 
-/* --RIPPED FROM ENDER DRAGON
-    private void tickPart(BlobPart pPart, double pOffsetX, double pOffsetY, double pOffsetZ) {
-        pPart.setPos(this.getX() + pOffsetX, this.getY() + pOffsetY, this.getZ() + pOffsetZ);
-    }
-/*
-    public void aiStep() {
-        //Vec3 vec3 = this.getDeltaMovement();
-
-        this.setYRot(Mth.wrapDegrees(this.getYRot()));
-
-        this.yBodyRot = this.getYRot();
-        Vec3[] avec3 = new Vec3[this.subEntities.length];
-
-        for(int j = 0; j < this.subEntities.length; ++j) {
-            avec3[j] = new Vec3(this.subEntities[j].getX(), this.subEntities[j].getY(), this.subEntities[j].getZ());
-        }
-
-        this.tickPart(this.bodyfront, 0.0D, 0.0D, 0.0D);
-        this.tickPart(this.bodyback, -1.0D, 0.0D, 1.0D);
-
-        for(int l = 0; l < this.subEntities.length; ++l) {
-            this.subEntities[l].xo = avec3[l].x;
-            this.subEntities[l].yo = avec3[l].y;
-            this.subEntities[l].zo = avec3[l].z;
-            this.subEntities[l].xOld = avec3[l].x;
-            this.subEntities[l].yOld = avec3[l].y;
-            this.subEntities[l].zOld = avec3[l].z;
-        }
-    }
-*/
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
         event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.blob.idle", true));
         return PlayState.CONTINUE;

@@ -5,6 +5,7 @@ import com.slendymctendies.scapecraft.entity.EntityHandler;
 import com.slendymctendies.scapecraft.entity.inferno.BlobEntity;
 import com.slendymctendies.scapecraft.entity.inferno.JalBatEntity;
 import com.slendymctendies.scapecraft.entity.inferno.NibblerEntity;
+import com.slendymctendies.scapecraft.entity.inferno.SnakeEntity;
 import com.slendymctendies.scapecraft.entity.projectile.JalBatProjectileRenderer;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
@@ -19,6 +20,7 @@ public class EventBusEvents {
         event.put(EntityHandler.NIBBLER.get(), NibblerEntity.setAttributes());
         event.put(EntityHandler.JALBAT.get(), JalBatEntity.setAttributes());
         event.put(EntityHandler.BLOB.get(), BlobEntity.setAttributes());
+        event.put(EntityHandler.SNAKE.get(), SnakeEntity.setAttributes());
     }
 
     @SubscribeEvent

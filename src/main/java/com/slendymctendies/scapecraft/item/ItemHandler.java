@@ -26,9 +26,10 @@ public class ItemHandler {
             () -> new ForgeSpawnEggItem(EntityHandler.NIBBLER, 0x000000, 0xf9cb9c, new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
     public static final RegistryObject<Item> JALBAT_SPAWNEGG = ITEMS.register("jalbat_spawn_egg",
             () -> new ForgeSpawnEggItem(EntityHandler.JALBAT, 0x000000, 0xf9cb9c, new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
-
     public static final RegistryObject<Item> BLOB_SPAWNEGG = ITEMS.register("blob_spawn_egg",
             () -> new ForgeSpawnEggItem(EntityHandler.BLOB, 0x000000, 0xf9cb9c, new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
+    public static final RegistryObject<Item> SNAKE_SPAWNEGG = ITEMS.register("snake_spawn_egg",
+            () -> new ForgeSpawnEggItem(EntityHandler.SNAKE, 0x000000, 0xf9cb9c, new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
 
     public static void register(IEventBus eventBus){
         ITEMS.register(eventBus);

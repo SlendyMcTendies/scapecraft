@@ -20,7 +20,7 @@ public class EmptyRenderer<T extends Entity> extends EntityRenderer<T> {
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
     }
 
-    // Only render if the debug bboxes are enabled
+    // Only render if the debug bounding boxes are enabled
     @Override
     public boolean shouldRender(@NotNull T livingEntityIn, @NotNull Frustum camera, double camX, double camY, double camZ) {
         if (!this.entityRenderDispatcher.shouldRenderHitBoxes())

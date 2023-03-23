@@ -1,4 +1,6 @@
 {
   "item.scapecraft.nibbler_spawn_egg": "Nibbler Spawn Egg",
-  "item.scapecraft.jalbat_spawn_egg": "JalBat Spawn Egg"
+  "item.scapecraft.jalbat_spawn_egg": "(Inferno) Bat Spawn Egg",
+  "item.scapecraft.blob_spawn_egg": "Blob Spawn Egg",
+  "item.scapecraft.snake_spawn_egg": "Snake Spawn Egg"
 }
