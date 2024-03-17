@@ -1,9 +1,6 @@
 package com.slendymctendies.scapecraft.entity.inferno;
 
-import com.slendymctendies.scapecraft.entity.client.JalBatRenderer;
 import com.slendymctendies.scapecraft.entity.projectile.JalBatProjectileEntity;
-import com.slendymctendies.scapecraft.item.ItemHandler;
-import com.slendymctendies.scapecraft.item.projectile.JalBatProjectileItem;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -19,13 +16,10 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.goal.GoalSelector;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.Arrow;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -111,7 +105,6 @@ public class JalBatEntity extends FlyingMob implements IAnimatable, Enemy {
                     this.bat.yBodyRot = this.bat.getYRot();
                 }
             }
-
         }
     }
 
@@ -142,9 +135,11 @@ public class JalBatEntity extends FlyingMob implements IAnimatable, Enemy {
 
         public void start() {
             Random random = this.bat.getRandom();
+            
             double d0 = this.bat.getX() + (double)((random.nextFloat() * 2.0F - 1.0F) * 16.0F);
             double d1 = this.bat.getY() + (double)((random.nextFloat() * 2.0F - 1.0F) * 16.0F);
             double d2 = this.bat.getZ() + (double)((random.nextFloat() * 2.0F - 1.0F) * 16.0F);
+            
             this.bat.getMoveControl().setWantedPosition(d0, d1, d2, 1.0D);
         }
     }
@@ -208,7 +203,6 @@ public class JalBatEntity extends FlyingMob implements IAnimatable, Enemy {
                         double d3 = livingentity.getY(0.5D) - (0.5D + this.bat.getY(0.5D));
                         double d4 = livingentity.getZ() - (this.bat.getZ() + vec3.z * 4.0D);
 
-                        //JalBatProjectileItem dartItem = new JalBatProjectileItem(new Item.Properties());
                         JalBatProjectileEntity dartEntity = new JalBatProjectileEntity(this.bat, level);
                         SoundEvent shootSound = SoundEvents.ARROW_SHOOT;
                         dartEntity.setPos(this.bat.getX() + vec3.x * 4.0D, this.bat.getY(0.5D) + 0.5D, dartEntity.getZ() + vec3.z * 4.0D);
@@ -276,17 +270,10 @@ public class JalBatEntity extends FlyingMob implements IAnimatable, Enemy {
         event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.bat.flap", true));
         return PlayState.CONTINUE;
     }
-/*
-    private PlayState attackPredicate(AnimationEvent event){
-        event.getController().markNeedsReload();
-        event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.bat.dartattack", false));
-        return PlayState.CONTINUE;
-    }
-*/
+
     @Override
     public void registerControllers(AnimationData data) {
         data.addAnimationController(new AnimationController<JalBatEntity>(this, "defaultController", 0, this::predicate));
-        //data.addAnimationController(new AnimationController<JalBatEntity>(this, "attackController", 0, this::attackPredicate));
     }
 
     @Override
