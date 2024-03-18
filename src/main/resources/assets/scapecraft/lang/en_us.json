@@ -1,6 +1,38 @@
 {
   "item.scapecraft.blankrune": "Rune Essence",
+  "item.scapecraft.airrune": "Air Rune",
+  "item.scapecraft.astralrune": "Astral Rune",
+  "item.scapecraft.bloodrune": "Blood Rune",
+  "item.scapecraft.bodyrune": "Body Rune",
+  "item.scapecraft.chaosrune": "Chaos Rune",
+  "item.scapecraft.cosmicrune": "Cosmic Rune",
+  "item.scapecraft.deathrune": "Death Rune",
+  "item.scapecraft.earthrune": "Earth Rune",
   "item.scapecraft.firerune": "Fire Rune",
+  "item.scapecraft.lawrune": "Law Rune",
+  "item.scapecraft.mindrune": "Mind Rune",
+  "item.scapecraft.naturerune": "Nature Rune",
+  "item.scapecraft.soulrune": "Soul Rune",
+  "item.scapecraft.waterrune": "Water Rune",
+  "item.scapecraft.wrathrune": "Wrath Rune",
+
+  "item.scapecraft.airtalisman": "Air Talisman",
+  "item.scapecraft.astraltalisman": "Astral Talisman",
+  "item.scapecraft.bloodtalisman": "Blood Talisman",
+  "item.scapecraft.bodytalisman": "Body Talisman",
+  "item.scapecraft.chaostalisman": "Chaos Talisman",
+  "item.scapecraft.cosmictalisman": "Cosmic Talisman",
+  "item.scapecraft.deathtalisman": "Death Talisman",
+  "item.scapecraft.earthtalisman": "Earth Talisman",
+  "item.scapecraft.firetalisman": "Fire Talisman",
+  "item.scapecraft.lawtalisman": "Law Talisman",
+  "item.scapecraft.mindtalisman": "Mind Talisman",
+  "item.scapecraft.naturetalisman": "Nature Talisman",
+  "item.scapecraft.soultalisman": "Soul Talisman",
+  "item.scapecraft.watertalisman": "Water Talisman",
+  "item.scapecraft.wrathtalisman": "Wrath Talisman",
+
+  "block.scapecraft.rune_essence_block": "Rune Essence Block",
 
   "creativetab.runes_tab": "Scapecraft Runes"
 }
