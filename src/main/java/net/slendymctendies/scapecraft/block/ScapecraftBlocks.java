@@ -22,6 +22,9 @@ public class ScapecraftBlocks {
     public static final RegistryObject<Block> RUNE_ESSENCE_BLOCK = registerBlock("rune_essence_block",
             () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE), UniformInt.of(1,1)));
 
+    public static final RegistryObject<Block> FIRE_ALTAR_CORE_BLOCK = registerBlock("fire_altar_core",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.BEDROCK)));
+
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block){
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
         registerBlockItem(name, toReturn);

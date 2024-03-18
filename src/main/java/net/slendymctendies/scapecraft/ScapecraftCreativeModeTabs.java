@@ -53,6 +53,7 @@ public class ScapecraftCreativeModeTabs {
                         output.accept(ScapecraftItems.WRATHTALISMAN.get());
 
                         output.accept(ScapecraftBlocks.RUNE_ESSENCE_BLOCK.get());
+                        output.accept(ScapecraftBlocks.FIRE_ALTAR_CORE_BLOCK.get());
                     })
                     .build());
 
