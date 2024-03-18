@@ -1,7 +1,6 @@
 package net.slendymctendies.scapecraft;
 
 import com.mojang.logging.LogUtils;
-import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
@@ -26,6 +25,7 @@ public class Scapecraft
     public static final String MOD_ID = "scapecraft";
     // Directly reference a slf4j logger
     private static final Logger LOGGER = LogUtils.getLogger();
+
     public Scapecraft()
     {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -38,6 +38,7 @@ public class Scapecraft
 
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
+
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
 
